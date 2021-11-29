@@ -57,46 +57,31 @@ public class LogisticsBase {
                           lock.unlock();
 //                      }
                        try {
-                           lock.lock();
+
                            semaphore.acquire();
                            terminals.get(0).loadingOrUnloading(vans.getFirst());
                            semaphore.release();
-                           lock.unlock();
-                           lock.lock();
+
                            semaphore.acquire();
                            terminals.get(1).loadingOrUnloading(vans.getFirst());
                            semaphore.release();
-                           lock.unlock();
-                           lock.lock();
+
                            semaphore.acquire();
                            terminals.get(2).loadingOrUnloading(vans.getFirst());
                            semaphore.release();
-                           lock.unlock();
-                           lock.lock();
+
                            semaphore.acquire();
                            terminals.get(3).loadingOrUnloading(vans.getFirst());
                            semaphore.release();
-                           lock.unlock();
-                           lock.lock();
+
                            semaphore.acquire();
                            terminals.get(4).loadingOrUnloading(vans.getFirst());
                            semaphore.release();
-                           lock.unlock();
+
                        } catch (InterruptedException e) {
                            e.printStackTrace();
                        }
                        // logger.info("befor " + vans);
-                          //  try {
-                                //terminal.loadingOrUnloading(vans.getFirst());
-                            // }finally{
-//                                semaphore.release();
-//                                semaphore.release();
-//                                semaphore.release();
-//                                semaphore.release();
-//                                semaphore.release();
-                              //  lock.unlock();
-                      // }
-                  // }
                }
            });
        }
