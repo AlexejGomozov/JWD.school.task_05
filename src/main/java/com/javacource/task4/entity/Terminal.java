@@ -11,7 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Terminal {
     private static final Logger logger = LogManager.getLogger();
     private static ReentrantLock lock = new ReentrantLock();
-    private static AtomicBoolean atomicBool = new AtomicBoolean();
+    private static AtomicBoolean atomicBool = new AtomicBoolean(false);
     //private boolean isBusy;
     private final int terminalId;
     private int count;
