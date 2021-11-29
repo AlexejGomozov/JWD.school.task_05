@@ -46,16 +46,16 @@ public class LogisticsBase {
                    //for(int i = 0; i<terminals.size(); i++){
                    //for (Terminal terminal : terminals) {
                       //  nameOfTerminal = terminal.toString();
-//                      try {
+                      try {
                           lock.lock();
                           if (this.getIsMaxPriority() == true) {
                               vans.addFirst(this);
                           } else {
                               vans.add(this);  // или addLast  ???
                           }
-//                      }finally{
+                         }finally{
                           lock.unlock();
-//                      }
+                      }
                        try {
 
                            semaphore.acquire();
@@ -87,7 +87,7 @@ public class LogisticsBase {
        }
        executorService.shutdown();
        try {
-           executorService.awaitTermination(1, TimeUnit.HOURS);
+           executorService.awaitTermination(1, TimeUnit.MINUTES);
        } catch (InterruptedException e) {
            e.printStackTrace();
        }
