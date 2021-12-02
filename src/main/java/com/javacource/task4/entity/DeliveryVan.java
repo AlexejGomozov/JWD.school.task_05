@@ -5,10 +5,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.StringJoiner;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DeliveryVan extends Thread{
 
     private static final Logger logger = LogManager.getLogger();
+    private static AtomicBoolean atomicBool = new AtomicBoolean(false);
     private final long vanId;
     private boolean isEmpty;
     private boolean isMaxPriority;
@@ -34,14 +36,19 @@ public class DeliveryVan extends Thread{
      public boolean getIsEmpty() {
          return isEmpty;
      }
+     public void setIsEmpty(boolean isEmpty){
+        this.isEmpty = isEmpty;
+     }
      public boolean getIsMaxPriority(){
        return isMaxPriority;
      }
-         public void load(){
-             this.isEmpty = false;
+         public boolean load(){
+             setIsEmpty(atomicBool.get());
+            return getIsEmpty(); //isEmpty = atomicBool.get();
          }
-         public void unload(){
-              this.isEmpty = true;
+         public boolean unload(){
+    setIsEmpty(atomicBool.compareAndSet(false,true));
+             return getIsEmpty(); //isEmpty = atomicBool.compareAndSet(false,true);
          }
 
 
@@ -52,7 +59,7 @@ public class DeliveryVan extends Thread{
         if(this.getClass()!=o.getClass()) return false;
         DeliveryVan van = (DeliveryVan) o;
         return vanId == van.vanId
-                && isEmpty ==van.isEmpty
+                && isEmpty == van.isEmpty
                 && isMaxPriority == van.isMaxPriority;
          }
 
