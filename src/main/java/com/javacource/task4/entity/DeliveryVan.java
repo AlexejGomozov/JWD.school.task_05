@@ -1,7 +1,6 @@
 package com.javacource.task4.entity;
 
 import com.javacource.task4.util.VanIdGenerator;
-
 import java.util.StringJoiner;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -12,7 +11,6 @@ public class DeliveryVan extends Thread{
     private boolean emptyVan;
     private boolean isMaxPriority;
     private static int amountOfVans;
-
 
 {
     vanId = VanIdGenerator.generate();

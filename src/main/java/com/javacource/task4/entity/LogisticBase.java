@@ -30,7 +30,6 @@ public class LogisticBase {
         for(int i = 0; i < amountOfTerminals; i++){
             terminals.add(new Terminal());
         }
-
     }
     public static LogisticBase getInstance(){
         while(instance ==null){
@@ -73,7 +72,7 @@ public class LogisticBase {
                             DeliveryVan vanForLoading1 = vansBeforeBase.poll();
                             DeliveryVan changedVan1 = terminals.get(0).loadingOrUnloading(vanForLoading1);
                             vansAfterBase.addFirst(changedVan1);
-                        }lock.unlock();
+                        } lock.unlock();
                         semaphore.release();
 
                         if (semaphore.tryAcquire(5, TimeUnit.MILLISECONDS)) {
@@ -81,7 +80,7 @@ public class LogisticBase {
                             DeliveryVan vanForLoading2 = vansBeforeBase.poll();
                             DeliveryVan changedVan2 = terminals.get(1).loadingOrUnloading(vanForLoading2);
                             vansAfterBase.addFirst(changedVan2);
-                        }lock.unlock();
+                        } lock.unlock();
                         semaphore.release();
 
                         if (semaphore.tryAcquire(1500, TimeUnit.MILLISECONDS)){
@@ -105,7 +104,7 @@ public class LogisticBase {
                             DeliveryVan vanForLoading5 = vansBeforeBase.poll();
                             DeliveryVan changedVan5 = terminals.get(4).loadingOrUnloading(vanForLoading5);
                             vansAfterBase.addFirst(changedVan5);
-                        }lock.unlock();
+                        } lock.unlock();
                         semaphore.release();
 
                     } catch (InterruptedException e) {
@@ -122,8 +121,4 @@ public class LogisticBase {
         }
         return vansAfterBase;
     }
-
-
-
-
 }

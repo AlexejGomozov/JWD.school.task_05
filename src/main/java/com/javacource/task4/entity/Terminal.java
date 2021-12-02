@@ -20,7 +20,7 @@ public class Terminal {
 
     public DeliveryVan loadingOrUnloading(DeliveryVan van) {
         if (van.getEmptyVan() == atomicBool.get()){
-            van.setEmptyVan(atomicBool.compareAndSet(false,true)); 
+            van.setEmptyVan(atomicBool.compareAndSet(false,true));
 
          } else {
             van.setEmptyVan(atomicBool.get());
