@@ -19,12 +19,11 @@ public class Terminal {
     }
 
     public DeliveryVan loadingOrUnloading(DeliveryVan van) {
-        if (van.getIsEmpty() == atomicBool.get()){
-            van.setIsEmpty(atomicBool.compareAndSet(false,true));
-            //van.load();
+        if (van.getEmptyVan() == atomicBool.get()){
+            van.setEmptyVan(atomicBool.compareAndSet(false,true)); 
+
          } else {
-           //van.unload();  //
-            van.setIsEmpty(atomicBool.get()); //
+            van.setEmptyVan(atomicBool.get());
          }
         return van;
     }

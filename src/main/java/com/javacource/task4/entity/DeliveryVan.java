@@ -1,18 +1,15 @@
 package com.javacource.task4.entity;
 
 import com.javacource.task4.util.VanIdGenerator;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.StringJoiner;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DeliveryVan extends Thread{
 
-    private static final Logger logger = LogManager.getLogger();
     private static AtomicBoolean atomicBool = new AtomicBoolean(false);
     private final long vanId;
-    private boolean isEmpty;
+    private boolean emptyVan;
     private boolean isMaxPriority;
     private static int amountOfVans;
 
@@ -21,8 +18,8 @@ public class DeliveryVan extends Thread{
     vanId = VanIdGenerator.generate();
 }
 
-    public DeliveryVan(boolean isEmpty, boolean isMaxPriority){
-        this.isEmpty = isEmpty;
+    public DeliveryVan(boolean emptyVan, boolean isMaxPriority){
+        this.emptyVan = emptyVan;
         this.isMaxPriority = isMaxPriority;
         if(isMaxPriority){this.setPriority(Thread.MAX_PRIORITY);}
     }
@@ -33,22 +30,22 @@ public class DeliveryVan extends Thread{
      public long getVanId(){
       return vanId;
      }
-     public boolean getIsEmpty() {
-         return isEmpty;
+     public boolean getEmptyVan() {
+         return emptyVan;
      }
-     public void setIsEmpty(boolean isEmpty){
-        this.isEmpty = isEmpty;
+     public void setEmptyVan(boolean emptyVan){
+        this.emptyVan = emptyVan;
      }
      public boolean getIsMaxPriority(){
        return isMaxPriority;
      }
          public boolean load(){
-             setIsEmpty(atomicBool.get());
-            return getIsEmpty(); //isEmpty = atomicBool.get();
+             setEmptyVan(atomicBool.get());
+            return getEmptyVan();
          }
          public boolean unload(){
-    setIsEmpty(atomicBool.compareAndSet(false,true));
-             return getIsEmpty(); //isEmpty = atomicBool.compareAndSet(false,true);
+    setEmptyVan(atomicBool.compareAndSet(false,true));
+             return getEmptyVan();
          }
 
 
@@ -59,14 +56,14 @@ public class DeliveryVan extends Thread{
         if(this.getClass()!=o.getClass()) return false;
         DeliveryVan van = (DeliveryVan) o;
         return vanId == van.vanId
-                && isEmpty == van.isEmpty
+                && emptyVan == van.emptyVan
                 && isMaxPriority == van.isMaxPriority;
          }
 
          @Override
     public int hashCode(){
     int result = (int)vanId;
-    result = 31*result+(isEmpty ? 1 : 0);
+    result = 31*result+(emptyVan ? 1 : 0);
     result = 31*result+(isMaxPriority ? 1 : 0);
     return result;
          }
@@ -75,7 +72,7 @@ public class DeliveryVan extends Thread{
     public String toString(){
     return new StringJoiner(", ", DeliveryVan.class.getSimpleName()+ "[","]")
             .add("vanId = " + vanId)
-            .add("isEmpty = " + isEmpty)
+            .add("emptyVan = " + emptyVan)
             .add("isMaxPriority = " + isMaxPriority)
             .toString();
          }
